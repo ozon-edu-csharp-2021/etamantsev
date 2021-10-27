@@ -1,0 +1,31 @@
+syntax = "proto3";
+option csharp_namespace = "OzonEdu.MerchandiseService.Grpc";
+package MerchandiseService;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+service MerchandiseServiceGrpc {
+    rpc V1GetAll (google.protobuf.Empty) returns (GetAllMerchItemsResponse);
+    rpc V1GetIssuance(IssuanceRequest) returns (GetIssuanceResponseUnit);
+}
+
+message IssuanceRequest {
+    int64 merchId = 1;
+}
+message GetAllMerchItemsResponse {
+    repeated GetAllMerchItemsResponseUnit merch = 1;
+}
+
+message GetAllMerchItemsResponseUnit {
+    int64 id = 1;
+    string name = 2;
+}
+
+message GetIssuanceResponseUnit {
+    google.protobuf.Timestamp issuance_on = 1;
+    string performer = 2;
+    int64 merch_id = 3;
+    string merch = 4;
+}
