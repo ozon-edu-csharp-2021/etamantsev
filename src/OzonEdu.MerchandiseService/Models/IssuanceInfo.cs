@@ -8,12 +8,12 @@ namespace OzonEdu.MerchandiseService.Models
             DateTimeOffset issuanceOn,
             string performer,
             long merchId,
-            string merch)
+            string merchName)
         {
             IssuanceOn = issuanceOn;
             Performer = performer;
             MerchId = merchId;
-            Merch = merch;
+            MerchName = merchName;
         }
 
         public DateTimeOffset IssuanceOn { get; }
@@ -22,6 +22,6 @@ namespace OzonEdu.MerchandiseService.Models
 
         public long MerchId { get; }
 
-        public string Merch { get; }
+        public string MerchName { get; }
     }
 }

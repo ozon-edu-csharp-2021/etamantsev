@@ -10,6 +10,6 @@ namespace OzonEdu.MerchandiseService.HttpModels
 
         public long MerchId { get; set; }
 
-        public string Merch { get; set; }
+        public string MerchName { get; set; }
     }
 }

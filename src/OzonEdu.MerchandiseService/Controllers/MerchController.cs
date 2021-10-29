@@ -26,7 +26,7 @@ namespace OzonEdu.MerchandiseService.Controllers
         }
 
         [HttpGet("{merchId:long}/issuance")]
-        [ProducesResponseType(typeof(MerchItem), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IssuanceInfo), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Issuance(long merchId, CancellationToken token)
         {

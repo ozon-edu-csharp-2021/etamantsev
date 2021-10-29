@@ -16,29 +16,32 @@ namespace OzonEdu.MerchandiseService.GrpcServices
             _merchService = merchService;
         }
 
-        public override async Task<GetAllMerchItemsResponse> V1GetAll(
-            Empty request,
+        public override async Task<GetAllMerchResponse> V1GetAll(
+            GetAllMerchRequest request,
             ServerCallContext context)
         {
             var retVal = await _merchService.GetAll(context.CancellationToken);
-            return new GetAllMerchItemsResponse
+            return new GetAllMerchResponse
             {
-                Merch = { retVal.Select(e => new GetAllMerchItemsResponseUnit
+                Merch =
                 {
-                    Id = e.Id,
-                    Name = e.Name
-                })}
+                    retVal.Select(e => new GetAllMerchItemsResponseUnit
+                    {
+                        Id = e.Id,
+                        Name = e.Name
+                    })
+                }
             };
         }
 
-        public override async Task<GetIssuanceResponseUnit> V1GetIssuance(
-            IssuanceRequest request,
+        public override async Task<GetIssuanceResponse> V1GetIssuance(
+            GetIssuanceRequest request,
             ServerCallContext context)
         {
             var retVal = await _merchService.GetIssuanceInfo(request.MerchId, context.CancellationToken);
-            return new GetIssuanceResponseUnit
+            return new GetIssuanceResponse
             {
-                Merch = retVal.Merch,
+                Merch = retVal.MerchName,
                 Performer = retVal.Performer,
                 IssuanceOn = Timestamp.FromDateTimeOffset(retVal.IssuanceOn),
                 MerchId = retVal.MerchId
