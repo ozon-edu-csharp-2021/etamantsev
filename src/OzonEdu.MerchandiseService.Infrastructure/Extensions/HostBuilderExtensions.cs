@@ -16,8 +16,8 @@ namespace OzonEdu.MerchandiseService.Infrastructure.Extensions
             {
                 services.AddSingleton<IStartupFilter, TerminalStartupFilter>();
                 services.AddSingleton<IStartupFilter, SwaggerStartupFilter>();
+                services.AddSingleton<IStartupFilter, RequestResponseLoggingStartupFilter>();
                 services.AddGrpc(options => options.Interceptors.Add<GrpcLoggingInterceptor>());
-                services.AddSingleton<IStartupFilter, SwaggerStartupFilter>();
                 services.AddSwaggerGen(options =>
                 {
                     options.SwaggerDoc("v1", new OpenApiInfo { Title = "OzonEdu.MerchandiseService", Version = "v1" });

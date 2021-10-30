@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace OzonEdu.MerchandiseService.Infrastructure.MiddlewareRoutes
+namespace OzonEdu.MerchandiseService.Infrastructure.Middleware
 {
     public class OkResponseMiddleware
     {

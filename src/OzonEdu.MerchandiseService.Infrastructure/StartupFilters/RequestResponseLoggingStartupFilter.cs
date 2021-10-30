@@ -5,15 +5,14 @@ using OzonEdu.MerchandiseService.Infrastructure.Middleware;
 
 namespace OzonEdu.MerchandiseService.Infrastructure.StartupFilters
 {
-    public class TerminalStartupFilter: IStartupFilter
+    public class RequestResponseLoggingStartupFilter : IStartupFilter
     {
         public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
         {
             return app =>
             {
-                app.Map("/version", builder => builder.UseMiddleware<VersionMiddleware>());
-                app.Map("/ready", builder => builder.UseMiddleware<OkResponseMiddleware>());
-                app.Map("/live", builder => builder.UseMiddleware<OkResponseMiddleware>());
+                app.UseMiddleware<RequestLoggingMiddleware>();
+                app.UseMiddleware<ResponseLoggingMiddleware>();
                 next(app);
             };
         }
