@@ -37,7 +37,7 @@ dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggest
 
 # ReSharper properties
 resharper_autodetect_indent_settings = true
-resharper_space_within_single_line_array_initializer_braces = false
+resharper_space_within_single_line_array_initializer_braces = true
 resharper_use_indent_from_vs = false
 
 # ReSharper inspection severities
