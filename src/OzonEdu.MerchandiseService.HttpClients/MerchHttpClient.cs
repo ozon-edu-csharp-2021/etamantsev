@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using OzonEdu.MerchandiseService.HttpModels;
+using OzonEdu.MerchandiseService.HttpModels.ResponseModels;
 
 namespace OzonEdu.MerchandiseService.HttpClients
 {

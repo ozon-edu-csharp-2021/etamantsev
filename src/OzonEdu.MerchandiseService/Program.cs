@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
-using OzonEdu.MerchandiseService.Infrastructure.Extensions;
+using OzonEdu.MerchandiseService.Middleware.Extensions;
+
 
 namespace OzonEdu.MerchandiseService
 {

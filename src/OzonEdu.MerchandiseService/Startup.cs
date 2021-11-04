@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OzonEdu.MerchandiseService.Domain.Contracts;
 using OzonEdu.MerchandiseService.GrpcServices;
-using OzonEdu.MerchandiseService.Services;
-using OzonEdu.MerchandiseService.Services.Contracts;
+using OzonEdu.MerchandiseService.Infrastructure.DomainServices;
+using OzonEdu.MerchandiseService.Infrastructure.DomainServices.Contracts;
+using OzonEdu.MerchandiseService.Infrastructure.Repository;
 
 namespace OzonEdu.MerchandiseService
 {
@@ -19,7 +21,9 @@ namespace OzonEdu.MerchandiseService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IMerchService, MerchService>();
+            services.AddScoped<IMerchRequestRepository, MerchRequestRepository>();
+            services.AddScoped<IUnitOfWork, FakeUow>();
+            services.AddScoped<IMerchRequestDomainService, MerchRequestDomainService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
