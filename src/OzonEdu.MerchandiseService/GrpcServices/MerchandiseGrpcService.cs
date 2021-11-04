@@ -3,15 +3,15 @@ using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using OzonEdu.MerchandiseService.Grpc;
-using OzonEdu.MerchandiseService.Services.Contracts;
+using OzonEdu.MerchandiseService.Infrastructure.DomainServices.Contracts;
 
 namespace OzonEdu.MerchandiseService.GrpcServices
 {
     public class MerchandiseGrpcService : MerchandiseServiceGrpc.MerchandiseServiceGrpcBase
     {
-        private readonly IMerchService _merchService;
+        private readonly IMerchRequestDomainService _merchService;
 
-        public MerchandiseGrpcService(IMerchService merchService)
+        public MerchandiseGrpcService(IMerchRequestDomainService merchService)
         {
             _merchService = merchService;
         }
@@ -20,7 +20,7 @@ namespace OzonEdu.MerchandiseService.GrpcServices
             GetAllMerchRequest request,
             ServerCallContext context)
         {
-            var retVal = await _merchService.GetAll(context.CancellationToken);
+            var retVal = await _merchService.GetAllMerchAsync(context.CancellationToken);
             return new GetAllMerchResponse
             {
                 Merch =
@@ -38,13 +38,22 @@ namespace OzonEdu.MerchandiseService.GrpcServices
             GetIssuanceRequest request,
             ServerCallContext context)
         {
-            var retVal = await _merchService.GetIssuanceInfo(request.MerchId, context.CancellationToken);
+            var retVal = await _merchService.GetIssuanceInfoAsync(request.MerchRequestId, context.CancellationToken);
             return new GetIssuanceResponse
             {
-                Merch = retVal.MerchName,
+                Merch =
+                {
+                    retVal.Merch.Select(e => new GetAllMerchItemsResponseUnit
+                    {
+                        Id = e.Id,
+                        Name = e.Name
+                    })
+                },
                 Performer = retVal.Performer,
-                IssuanceOn = Timestamp.FromDateTimeOffset(retVal.IssuanceOn),
-                MerchId = retVal.MerchId
+                IssuanceOn = retVal.IssuanceOn .HasValue
+                    ? Timestamp.FromDateTimeOffset(retVal.IssuanceOn.Value)
+                    : null,
+                MerchRequestId = retVal.MerchRequestId
             };
         }
     }

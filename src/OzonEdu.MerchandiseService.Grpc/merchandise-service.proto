@@ -14,7 +14,7 @@ message GetAllMerchRequest {
 }
 
 message GetIssuanceRequest {
-    int64 merchId = 1;
+    int64 merchRequestId = 1;
 }
 
 message GetAllMerchResponse {
@@ -29,6 +29,6 @@ message GetAllMerchItemsResponseUnit {
 message GetIssuanceResponse {
     google.protobuf.Timestamp issuance_on = 1;
     string performer = 2;
-    int64 merch_id = 3;
-    string merch = 4;
+    int64 merch_request_id = 3;
+    repeated GetAllMerchItemsResponseUnit merch = 4;
 }
